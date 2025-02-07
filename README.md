@@ -24,7 +24,7 @@ Develop a machine learning solution to:
 4. **Volatility** → Risk Levels  
 5. **Bollinger Bands** → Price Channels and Extremes  
 
-## Prediction :
+## Prediction Table : 
 <img width="1183" alt="image" src="https://github.com/user-attachments/assets/d3a15ce2-b06a-4dc4-bfb6-3dc35364e5b6" />
 
 # Market Analysis Model Documentation

@@ -24,28 +24,99 @@ Develop a machine learning solution to:
 4. **Volatility** → Risk Levels  
 5. **Bollinger Bands** → Price Channels and Extremes  
 
-## Team Information
-[Add your team details here]
+## Prediction :
+<img width="1183" alt="image" src="https://github.com/user-attachments/assets/d3a15ce2-b06a-4dc4-bfb6-3dc35364e5b6" />
 
-## Using DCO to sign your commits
+# Market Analysis Model Documentation
 
-**All commits** must be signed with a DCO signature to avoid being flagged by the DCO Bot. This means that your commit log message must contain a line that looks like the following one, with your actual name and email address:
+## Overview
+This project aims to predict market trends using two different types of models:
+1. **LSTM (Long Short-Term Memory)** model.
+2. **Traditional ML Models** (Random Forest, XGBoost, Gradient Boosting, Support Vector Regressor).
 
-```
-Signed-off-by: Vedanshu Joshi 
-```
+Both models are trained using the same dataset, but the LSTM model is used for sequence-based forecasting, while the traditional models use individual data points for prediction.
 
-### Helpful DCO Resources
-- [Git Tools - Signing Your Work](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work)
-- [Signing commits](https://docs.github.com/en/github/authenticating-to-github/signing-commits)
+## Features and Target Prediction
 
-## License
-Copyright 2025 FINOS
+### Primary Column Predicted:
+- **Column:** `Returns`  
+- **Description:** The returns represent the percentage change in the stock's closing price from the previous day.  
+  **Formula:**
+  \[
+  \text{Returns} = \frac{P_t - P_{t-1}}{P_{t-1}}
+  \]
+  Where:
+  - \(P_t\) is the price at time \(t\),
+  - \(P_{t-1}\) is the price at time \(t-1\).
 
-Distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+### Derived Column Predicted:
+- **Column:** `Log_Returns`  
+- **Description:** Logarithmic returns are used to model continuous compounding, often preferred in financial modeling.  
+  **Formula:**
+  \[
+  \text{Log Returns} = \ln\left(\frac{P_t}{P_{t-1}}\right)
+  \]
+  Where:
+  - \(P_t\) is the price at time \(t\),
+  - \(P_{t-1}\) is the price at time \(t-1\),
+  - \(\ln\) denotes the natural logarithm.
 
-SPDX-License-Identifier: [Apache-2.0](https://spdx.org/licenses/Apache-2.0)
+### Feature Columns Used for Training:
+The following feature columns are used in training both LSTM and traditional models:
 
----
+1. **`Returns`** – Percentage change in closing price.
+2. **`Log_Returns`** – Logarithmic returns derived from the `Returns`.
+3. **`MA5`** – 5-day moving average of the closing price.
+4. **`MA20`** – 20-day moving average of the closing price.
+5. **`MA50`** – 50-day moving average of the closing price.
+6. **`Volatility`** – Standard deviation of returns, calculated over a 20-day rolling window.
+7. **`RSI`** – Relative Strength Index (RSI), used to identify overbought/oversold conditions in the market.
+8. **`MACD`** – Moving Average Convergence Divergence, used to identify potential buy or sell signals.
+9. **`Volume_Rate`** – Volume divided by its 20-day moving average, used to identify spikes in trading volume.
 
-Feel free to add specific team details where indicated!
+## Model Training Process
+
+### 1. LSTM Model
+- The LSTM model is used for sequence-based prediction where the historical data is used to predict future values.
+- The model is built with two LSTM layers and dropout for regularization. It predicts `Returns` as the primary output.
+
+### 2. Traditional Models
+- The traditional models, such as **Random Forest**, **XGBoost**, **Gradient Boosting**, and **Support Vector Regressor**, are trained on individual features like `Returns`, `Log_Returns`, `MA5`, `RSI`, etc.
+- These models do not consider the sequence nature of the data but rather individual points of market features.
+
+## Code Implementation
+
+```python
+# Loading and Preprocessing Data
+
+def load_data(self):
+    """Load and prepare CSV data"""
+    # Read and process the data
+    # Date column conversion and sorting
+    # Feature engineering for returns, moving averages, RSI, etc.
+
+def create_features(self):
+    """Create technical indicators for analysis"""
+    # Create returns, log returns, moving averages, volatility, RSI, etc.
+
+def prepare_sequences(self, sequence_length=5000):
+    """Prepare sequences for LSTM"""
+    # Scale data and prepare sequences for the LSTM model.
+
+def build_lstm_model(self, input_shape):
+    """Build the LSTM model architecture"""
+    # LSTM with two layers and dropout
+
+def train_models(self, X_lstm, y):
+    """Train both LSTM and traditional models"""
+    # Train LSTM model
+    # Train RandomForest, XGBoost, GradientBoosting, SVR using traditional features
+
+# Anomaly detection using IsolationForest
+def detect_anomalies(self):
+    """Detect market anomalies"""
+    # Use IsolationForest for anomaly detection based on features
+
+def plot_results(self, y_test, anomalies, history):
+    """Visualize the results of model predictions"""
+    # Plot actual vs predicted values, performance metrics, and anomaly detection

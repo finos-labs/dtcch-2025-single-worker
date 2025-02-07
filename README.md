@@ -120,3 +120,19 @@ def detect_anomalies(self):
 def plot_results(self, y_test, anomalies, history):
     """Visualize the results of model predictions"""
     # Plot actual vs predicted values, performance metrics, and anomaly detection
+```
+## Models Comparitive Performance 
+
+<img width="641" alt="image" src="https://github.com/user-attachments/assets/a9af32c4-710c-41d3-bd8f-17a49981ad23" />
+
+## Anomaly Detection in Trade Price Data
+
+<img width="666" alt="image" src="https://github.com/user-attachments/assets/6cb85e60-e566-4ee6-bdfe-d9528b86fa83" />
+
+## Feature Correlation
+
+<img width="615" alt="image" src="https://github.com/user-attachments/assets/781b8f44-6703-4dac-b76f-f385569d2b9d" />
+
+
+
+
